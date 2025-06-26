@@ -1,0 +1,116 @@
+
+.spinner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 5em;
+}
+
+.spinner div {
+  padding: 5em;
+}
+
+.box {
+  border: solid 1px #000;
+  margin: 5px;
+  padding: 10px;
+}
+
+.box .title {
+  font-weight: 800;
+}
+
+form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333;
+}
+
+input[type="text"],
+input[type="file"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #007bff;
+}
+
+/* Blog post card */
+.box {
+  background-color: #f8f9fa;
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+  height: 100%;
+  transition: transform 0.2s ease;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+}
+
+/* Link styling */
+.title a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.2s;
+}
+
+.title a:hover {
+  color: #0056b3;
+}
+
+/* Add New button styling */
+h3 .btn {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
