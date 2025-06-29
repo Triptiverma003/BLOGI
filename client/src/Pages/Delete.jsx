@@ -25,20 +25,15 @@ const Delete = () => {
     // console.log("Inside handledelete");
   };
 
-  return (
-    <>
-      <Container>
-        <Row>
-          <h1>Are you sure to delete this record?</h1>
-          <Col xs="12" className="py-5">
-            <button className="btn btn-danger py-2 my-2" onClick={handleDelete}>
-              Proceed
-            </button>
-          </Col>
-        </Row>
-      </Container>
-    </>
-  );
+  return ( 
+  <Container> 
+    <Row className="delete-container"> 
+      <Col xs="12"> <h1>Are you sure you want to delete this record?</h1>
+       <button onClick={handleDelete}> Proceed </button> 
+       </Col> 
+       </Row> 
+       </Container> 
+       );
 };
 
 export default Delete;

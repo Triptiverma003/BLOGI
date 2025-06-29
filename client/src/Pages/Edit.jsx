@@ -85,62 +85,62 @@ const Edit = () => {
 
   return (
     <>
-      <Container>
-        <h1>Edit Post</h1>
-        {apiData && (
-          <form onSubmit={handleSubmit(saveForm)}>
-            <Row>
-              <Col xs="12" className="py-3">
-                <label>Post Title</label>
-                <input
-                  defaultValue={apiData.title}
-                  className={`${errors.title && "error"}`}
-                  placeholder="Please enter title"
-                  {...register("title", {
-                    required: { value: true, message: "Title is required." },
-                    min: {
-                      value: 3,
-                      message: "Title should be minimum 3 characters.",
-                    },
-                  })}
-                />
-                {errors.title && (
-                  <div className="error">{errors.title.message}</div>
-                )}
-              </Col>
-              <Col xs="12" className="py-3">
-                <label>Post Content</label>
-                <input
-                  defaultValue={apiData.post}
-                  className={`${errors.post && "error"}`}
-                  placeholder="Please enter content"
-                  {...register("post", {
-                    required: {
-                      value: true,
-                      message: "Post Content is required.",
-                    },
-                  })}
-                />
-                {errors.post && (
-                  <div className="error">{errors.post.message}</div>
-                )}
-              </Col>
-              <Col xs="12" className="py-3">
-              <label>Image</label>
-              <input
-                type="file"
-                className={`${errors.image && "error"}`}
-                placeholder="Please enter content"
-                {...register("image")}
-              />
-            </Col>
-              <Col>
-                <button type="submit">Save</button>
-              </Col>
-            </Row>
-          </form>
-        )}
-      </Container>
+     <Container className="edit-form-container">
+    <h1 className="text-center mb-4">✏️ Edit Post</h1>
+
+    {apiData && (
+    <form onSubmit={handleSubmit(saveForm)} className="edit-form">
+      <Row>
+        <Col xs="12" className="py-2">
+          <label className="form-label">Post Title</label>
+          <input
+            defaultValue={apiData.title}
+            className={`form-control ${errors.title ? "is-invalid" : ""}`}
+            placeholder="Enter title"
+            {...register("title", {
+              required: "Title is required.",
+              minLength: {
+                value: 3,
+                message: "Minimum 3 characters.",
+              },
+            })}
+          />
+          {errors.title && <div className="invalid-feedback">{errors.title.message}</div>}
+        </Col>
+
+        <Col xs="12" className="py-2">
+          <label className="form-label">Post Content</label>
+          <textarea
+            defaultValue={apiData.post}
+            className={`form-control ${errors.post ? "is-invalid" : ""}`}
+            rows={4}
+            placeholder="Write something..."
+            {...register("post", {
+              required: "Post content is required.",
+            })}
+          />
+          {errors.post && <div className="invalid-feedback">{errors.post.message}</div>}
+        </Col>
+
+        <Col xs="12" className="py-2">
+          <label className="form-label">Image</label>
+          <input
+            type="file"
+            className="form-control"
+            {...register("image")}
+          />
+        </Col>
+
+        <Col xs="12" className="py-3 text-center">
+          <button type="submit" className="btn btn-primary px-5 py-2">
+            {loading ? "Saving..." : "💾 Save"}
+          </button>
+        </Col>
+      </Row>
+    </form>
+    )}
+  </Container>
+
     </>
   );
 };

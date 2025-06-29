@@ -8,6 +8,8 @@ import Login from "./Pages/Login";
 import { useEffect } from "react";
 import axios from "axios";
 import Logout from "./Pages/Logout";
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
 
 function App (){
   
@@ -60,6 +62,8 @@ function App (){
     <Route path="/delete/:id" element = {<Delete/>} />
     <Route path ="/login" element = {<Login/>} />
     <Route path = "/logout" element = {<Logout/>}/>
+    <Route path="/about" element = {<About/>}/>
+    <Route path="/contact" element = {<Contact/>}/>
    </Routes>
   );
 
