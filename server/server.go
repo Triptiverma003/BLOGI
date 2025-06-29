@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/Triptiverma003/blog/database"
 	"github.com/Triptiverma003/blog/router"
@@ -39,6 +40,11 @@ func main(){
 	app.Use(logger.New())
 
 	router.SetupRoutes(app)
+	port := os.Getenv("PORT")
+if port == "" {
+    port = "8000" // fallback default
+}
 
-	app.Listen(":8000")
+log.Printf("Server is running on port %s", port)
+log.Fatal(app.Listen(":" + port))
 }
