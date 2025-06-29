@@ -4,6 +4,18 @@ A full-stack Blog Application built using **Go (Gin)** for the backend and **Rea
 
 ---
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Triptiverma003/BLOGI/main/client/src/assets/BlogApp1.PNG" alt="Blog App Screenshot 1" width="800"/>
+  <br/>
+  <img src="https://raw.githubusercontent.com/Triptiverma003/BLOGI/main/client/src/assets/BlogApp2.PNG" alt="Blog App Screenshot 2" width="800"/>
+  <br/>
+  <img src="https://raw.githubusercontent.com/Triptiverma003/BLOGI/main/client/src/assets/BlogApp4.PNG" alt="Blog App Screenshot 3" width="800"/>
+</div>
+
+---
+
 ## 🚀 Tech Stack
 
 ### 🔧 Backend
