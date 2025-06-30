@@ -33,7 +33,7 @@ func main(){
 
 	// Or extend your config for customization
 	app.Use(cors.New(cors.Config{
-    AllowOrigins: "https://blogi-zeta.vercel.app/",
+    AllowOrigins: "*",
     AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
