@@ -13,33 +13,55 @@ const Login = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [apiError, setApiError] = useState("");
+    const [mode, setMode] = useState("login"); // login or register
 
     const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+} = useForm({
+    defaultValues: {
+        email: '',
+        password: '',
+        username: '',
+    },
+});
 
     const saveForm = async (data) => {
-        setLoading(true);
-        setApiError("");
+    setLoading(true);
+    setApiError("");
 
-        try {
-            const apiUrl = `${process.env.REACT_APP_AUTH_ROOT}/login`;
-            const response = await axios.post(apiUrl, data);
+    if (!data || !data.email || !data.password || (mode === "register" && !data.username)) {
+        setApiError("Please fill all required fields.");
+        setLoading(false);
+        return;
+    }
 
-            if (response.status === 200) {
-                const resData = response.data;
-                localStorage.setItem("token", resData.token);
-                dispatch(setUser(resData.user));
-                navigate("/", { state: resData.msg });
-            }
-        } catch (error) {
-            setApiError(error.response?.data?.msg || "Login failed. Please try again.");
-        } finally {
-            setLoading(false);
+    try {
+        let apiUrl = `${process.env.REACT_APP_AUTH_ROOT}/${mode}`;
+        const response = await axios.post(apiUrl, data);
+
+        if (response.status === 200) {
+            const resData = response.data;
+            localStorage.setItem("token", resData.token);
+            dispatch(setUser(resData.user));
+            navigate("/", { state: resData.msg });
         }
-    };
+    } catch (error) {
+        const errorMsg = error.response?.data?.msg || "Request failed. Try again.";
+
+        // Handle login fallback to register
+        if (mode === "login" && errorMsg.toLowerCase().includes("user not found")) {
+            setApiError("User not found. Switching to register mode...");
+            setMode("register");
+        } else {
+            setApiError(errorMsg);
+        }
+    } finally {
+        setLoading(false);
+    }
+};
 
     return (
         <div className="login-wrapper">
@@ -53,20 +75,42 @@ const Login = () => {
                             I’d love to hear your interaction and experience with it. 🌱
                         </p>
                         <img
-                           src={profileImg} // Or your uploaded image path
+                            src={profileImg}
                             alt="Developer workspace"
                             className="welcome-image"
                             style={{ maxWidth: "25%", borderRadius: "15px", marginTop: "1rem" }}
                         />
                     </Col>
 
-
                     <Col md={12} lg={6}>
-                        <h2 className="text-center mb-4">Login to Your Account</h2>
+                        <h2 className="text-center mb-4">
+                            {mode === "login" ? "Login to Your Account" : "Register New Account"}
+                        </h2>
 
                         {apiError && <Alert variant="danger">{apiError}</Alert>}
 
                         <Form onSubmit={handleSubmit(saveForm)}>
+                            {mode === "register" && (
+                                <Form.Group className="mb-3" controlId="username">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter username"
+                                        {...register("username", {
+                                            required: "Username is required",
+                                            minLength: {
+                                                value: 3,
+                                                message: "Username must be at least 3 characters"
+                                            }
+                                        })}
+                                        isInvalid={errors.username}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.username?.message}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            )}
+
                             <Form.Group className="mb-3" controlId="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
@@ -116,10 +160,10 @@ const Login = () => {
                                                 role="status"
                                                 aria-hidden="true"
                                             />{" "}
-                                            Logging in...
+                                            {mode === "login" ? "Logging in..." : "Registering..."}
                                         </>
                                     ) : (
-                                        "Login"
+                                        mode === "login" ? "Login" : "Register"
                                     )}
                                 </Button>
                             </div>
