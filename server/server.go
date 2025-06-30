@@ -13,38 +13,38 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-func init(){
-	if err := godotenv.Load(".env"); err!= nil{
+func init() {
+	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error in loading .env file")
 	}
 	database.ConnectDB()
 }
-func main(){
+func main() {
 
-	sqlDb , err := database.DBConn.DB()
+	sqlDb, err := database.DBConn.DB()
 
-	if err!= nil{
+	if err != nil {
 		panic("Error in SQL connection")
 	}
 	defer sqlDb.Close()
 	app := fiber.New()
 	app.Static("/static", "./static")
 
-
 	// Or extend your config for customization
 	app.Use(cors.New(cors.Config{
-    AllowOrigins: "*",
-    AllowHeaders: "Origin, Content-Type, Accept",
+		AllowOrigins:     "https://blogi-zeta.vercel.app",
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
+		AllowCredentials: true,
 	}))
 
 	app.Use(logger.New())
 
 	router.SetupRoutes(app)
 	port := os.Getenv("PORT")
-if port == "" {
-    port = "8000" // fallback default
-}
+	if port == "" {
+		port = "8000" // fallback default
+	}
 
-log.Printf("Server is running on port %s", port)
-log.Fatal(app.Listen(":" + port))
+	log.Printf("Server is running on port %s", port)
+	log.Fatal(app.Listen(":" + port))
 }
