@@ -32,7 +32,7 @@ func main() {
 
 	// Or extend your config for customization
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://localhost:3000/, https://blogi-wsvd.onrender.com, https://go-gin-ginoic.onrender.com",
+		AllowOrigins:     "http://localhost:3000/, https://blogi-wsvd.onrender.com, https://go-gin-ginoic.onrender.com, http://localhost:8001",
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowCredentials: true,
 	}))
