@@ -32,7 +32,7 @@ func main() {
 
 	// Or extend your config for customization
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://localhost:3000/, https://blogi-wsvd.onrender.com, https://go-gin-ginoic.onrender.com, http://localhost:8001",
+		AllowOrigins:     "http://localhost:3000/, https://blogi-wsvd.onrender.com, https://go-gin-ginoic.onrender.com, http://localhost:8001, https://blogi-zeta.vercel.app/",
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowCredentials: true,
 	}))
