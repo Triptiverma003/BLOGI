@@ -22,6 +22,86 @@ const Blog = () => {
     fetchData();
   }, [params.id]);
 
+  // Function to structure content as point-wise
+  const structureContentAsPoints = (content) => {
+    if (!content || typeof content !== 'string') return [];
+    
+    // Split content into sentences/paragraphs
+    const sentences = content
+      .split(/[.!?]+/)
+      .map(sentence => sentence.trim())
+      .filter(sentence => sentence.length > 0);
+    
+    // Group sentences into logical points
+    const points = [];
+    let currentPoint = '';
+    
+    sentences.forEach((sentence, index) => {
+      // Add sentence to current point
+      currentPoint += sentence + '.';
+      
+      // Create a new point every 2-3 sentences or when sentence is long
+      if (
+        (index + 1) % 2 === 0 || 
+        sentence.length > 100 || 
+        index === sentences.length - 1
+      ) {
+        points.push(currentPoint.trim());
+        currentPoint = '';
+      }
+    });
+    
+    return points.filter(point => point.length > 0);
+  };
+
+  // Function to detect and structure different content types
+  const processContent = (content) => {
+    if (!content) return [];
+    
+    // Check if content already has bullet points or numbers
+    const hasExistingStructure = /^[\s]*[-*•]|\d+\./m.test(content);
+    
+    if (hasExistingStructure) {
+      // Content already has structure, preserve it
+      return content.split('\n').filter(line => line.trim().length > 0);
+    } else {
+      // Structure as points
+      return structureContentAsPoints(content);
+    }
+  };
+
+  // Function to render structured content
+  const renderStructuredContent = (content) => {
+    const structuredPoints = processContent(content);
+    
+    if (structuredPoints.length === 0) {
+      return <p>No content available.</p>;
+    }
+    
+    return (
+      <div>
+        {structuredPoints.map((point, index) => (
+          <div key={index} style={{ marginBottom: '12px' }}>
+            <span style={{ 
+              fontWeight: 'bold', 
+              color: '#005b96',
+              marginRight: '8px'
+            }}>
+              •
+            </span>
+            <span style={{ 
+              fontSize: '1.1rem', 
+              lineHeight: '1.8', 
+              color: '#333' 
+            }}>
+              {point}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div
       style={{
@@ -46,9 +126,7 @@ const Blog = () => {
             </h2>
             <Row className="align-items-start">
               <Col md={6}>
-                <p style={{ fontSize: "1.1rem", lineHeight: "1.8", color: "#333" }}>
-                  {apiData.post || "No content available."}
-                </p>
+                {renderStructuredContent(apiData.post)}
               </Col>
               <Col md={6} className="text-center">
                 <img
