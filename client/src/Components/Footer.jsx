@@ -22,17 +22,8 @@ const Footer = () => {
         {/* Links */}
         <div className="footer-column">
           <h4>Links</h4>
-          <p>Homepage</p>
-          <p>Contact</p>
-        </div>
-
-        {/* Tags */}
-        <div className="footer-column">
-          <h4>Tags</h4>
-          <p>Style</p>
-          <p>Fashion</p>
-          <p>Coding</p>
-          <p>Travel</p>
+          <p><a href="/">Homepage</a></p>
+          <p><a href="/contact">Contact</a></p>
         </div>
 
         {/* Social */}
