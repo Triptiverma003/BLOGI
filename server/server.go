@@ -28,7 +28,7 @@ func main() {
 	}
 	defer sqlDb.Close()
 	app := fiber.New()
-	app.Static("/static", "./static")
+	app.Static("/uploads", "./uploads")
 
 	// Or extend your config for customization
 	app.Use(cors.New(cors.Config{
